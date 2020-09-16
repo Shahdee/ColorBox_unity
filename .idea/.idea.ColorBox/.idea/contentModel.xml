@@ -7,11 +7,13 @@
         <e p="Scripts" t="Include">
           <e p="Block" t="Include">
             <e p="BlockData.cs" t="Include" />
-            <e p="BlockFactory.cs" t="Include" />
             <e p="BlockModel.cs" t="Include" />
+            <e p="BlockModelFactory.cs" t="Include" />
             <e p="BlockView.cs" t="Include" />
-            <e p="IBlockFactory.cs" t="Include" />
+            <e p="BlockViewFactory.cs" t="Include" />
             <e p="IBlockModel.cs" t="Include" />
+            <e p="IBlockModelFactory.cs" t="Include" />
+            <e p="IBlockViewFactory.cs" t="Include" />
           </e>
           <e p="Game" t="Include">
             <e p="EGameState.cs" t="Include" />
@@ -19,8 +21,10 @@
             <e p="IGameController.cs" t="Include" />
           </e>
           <e p="Input" t="Include">
+            <e p="AbstractInputController.cs" t="Include" />
             <e p="IInputContoller.cs" t="Include" />
-            <e p="InputController.cs" t="Include" />
+            <e p="MouseController.cs" t="Include" />
+            <e p="TouchContoller.cs" t="Include" />
           </e>
           <e p="Level" t="Include">
             <e p="ILevelController.cs" t="Include" />

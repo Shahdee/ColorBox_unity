@@ -1,18 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class IInputContoller : MonoBehaviour
+public interface IInputController
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    event Action<Vector3> OnQuickTouch;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    void Tick();
+    bool Enabled {get;}
+    void SetEnabled(bool enabled);
 }

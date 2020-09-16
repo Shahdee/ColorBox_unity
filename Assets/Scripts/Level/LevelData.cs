@@ -8,12 +8,10 @@ public class LevelData
 
     private int _width;
     private int _height;
-    private List<BlockData> _blockData;
     
-    public LevelData(int width, int height, List<BlockData> blockData)
+    public LevelData(int width, int height)
     {
         _width = width;
         _height = height;
-        _blockData = blockData;
     }
 }
