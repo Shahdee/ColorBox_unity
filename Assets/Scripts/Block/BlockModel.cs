@@ -4,9 +4,11 @@ using System;
 public class BlockModel : IBlockModel
 {
       public event Action<IBlockModel> OnDestroy;
+      public event Action<IBlockModel> OnEat;
     
       public Color BlockColor => _color;
       public Vector2Int Position => _position;
+      public Vector2Int SiblingPosition => _siblingPosition;
 
       private Color _color;
       private Vector2Int _position;
@@ -19,6 +21,11 @@ public class BlockModel : IBlockModel
          _color = color;
          _position = position;
          _siblingPosition = siblingPosition;
+      }
+
+      public void Eat()
+      {
+          OnEat?.Invoke(this);
       }
 
       public void Destroy()

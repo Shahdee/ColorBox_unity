@@ -2,37 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cf991d74-fcab-4d0e-af30-a27192fac2bb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Block/BlockViewFactory.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Block/BlockViewFactory.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Block/IBlockViewFactory.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Block/IBlockViewFactory.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Input/MouseController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Input/MouseController.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Input/TouchContoller.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Input/TouchContoller.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Block/EBlockState.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Block/EBlockState.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ColorBox/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ColorBox/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ColorBox/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ColorBox/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ColorBox/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ColorBox/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Block.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Block.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Block/BlockFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Block/BlockModelFactory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Block/BlockFactory.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Block/BlockModelFactory.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Block/BlockModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Block/BlockModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Block/BlockView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Block/BlockView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Block/IBlockFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Block/IBlockModelFactory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Block/IBlockFactory.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Block/IBlockModelFactory.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Block/IBlockModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Block/IBlockModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/GameController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GameController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Input/IInputContoller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Input/IInputContoller.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Input/InputController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Input/AbstractInputController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Input/InputController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Input/AbstractInputController.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Level/ILevelModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Level/ILevelModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Level/ILevelViewController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Level/ILevelViewController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Level/LevelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Level/LevelController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Level/LevelData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Level/LevelData.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Level/LevelModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Level/LevelModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Level/LevelView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Level/LevelView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Level/LevelViewController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Level/LevelViewController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +23,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Block/EBlockState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Block/IBlockViewFactory.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/GameController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Level/LevelModel.cs" root0="FORCE_HIGHLIGHTING" />
@@ -81,22 +62,23 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Level/LevelView.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Block/IBlockViewFactory.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Block/BlockViewFactory.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Block/IBlockModel.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/TouchContoller.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/MouseController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/IInputContoller.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/AbstractInputController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Level/ILevelViewController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/GameController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Block/BlockView.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Level/LevelViewController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Level/ILevelModel.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Block/IBlockModelFactory.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Block/BlockModelFactory.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Block/BlockModel.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Level/LevelModel.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Level/LevelData.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Block/IBlockModel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Block/BlockModel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Block/EBlockState.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Block/BlockView.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Level/ILevelModel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/GameController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Level/LevelController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Level/LevelModel.cs" />
       </list>
     </option>
   </component>
@@ -148,9 +130,9 @@
       <screen x="-1920" y="23" width="1920" height="1057" />
     </state>
     <state x="-1133" y="233" key="RiderGenerateDialog/-1920.23.1920.1057/0.23.1680.1027@-1920.23.1920.1057" timestamp="1600239795996" />
-    <state x="-1300" y="250" width="672" height="678" key="search.everywhere.popup" timestamp="1600246600274">
+    <state x="-1300" y="250" width="672" height="678" key="search.everywhere.popup" timestamp="1600349291882">
       <screen x="-1920" y="23" width="1920" height="1057" />
     </state>
-    <state x="-1300" y="250" width="672" height="678" key="search.everywhere.popup/-1920.23.1920.1057/0.23.1680.1027@-1920.23.1920.1057" timestamp="1600246600274" />
+    <state x="-1300" y="250" width="672" height="678" key="search.everywhere.popup/-1920.23.1920.1057/0.23.1680.1027@-1920.23.1920.1057" timestamp="1600349291882" />
   </component>
 </project>

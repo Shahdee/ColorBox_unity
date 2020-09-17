@@ -11,6 +11,7 @@
             <e p="BlockModelFactory.cs" t="Include" />
             <e p="BlockView.cs" t="Include" />
             <e p="BlockViewFactory.cs" t="Include" />
+            <e p="EBlockState.cs" t="Include" />
             <e p="IBlockModel.cs" t="Include" />
             <e p="IBlockModelFactory.cs" t="Include" />
             <e p="IBlockViewFactory.cs" t="Include" />

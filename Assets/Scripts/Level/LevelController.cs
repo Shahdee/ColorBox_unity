@@ -17,6 +17,7 @@ public class LevelController : ILevelController, IDisposable
     private IGameController _gameController;
 
     private LevelData _levelData;
+    private List<BlockView> _showingBlocks;
     
     public LevelController(IGameController _gameController, 
                             LevelView levelView,
@@ -26,10 +27,13 @@ public class LevelController : ILevelController, IDisposable
         _inputController = inputController;
         _blockFactory = new BlockModelFactory();
         _levelModel = new LevelModel();
+        
         _levelViewController = new LevelViewController(_levelView, _levelModel);
+        _showingBlocks = new List<BlockView>();
         
         _gameController.OnGameStateChange += GameStateChanged;
         _inputController.OnQuickTouch += QuickTouch;
+        _levelModel.OnAllBlocksDestroy += AllBlocksDestroy;
     }
 
     private void GameStateChanged(EGameState gameState)
@@ -56,25 +60,52 @@ public class LevelController : ILevelController, IDisposable
         var block = _levelModel.GetBlock(blockPosition);
 
         if (block == null)
-        {
-            Debug.LogError("No block model at " + blockPosition);
             return;
-        }
 
         var blockView = _levelViewController.GetBlock(block);
         if (blockView == null)
-        {
-            Debug.LogError("No block view at " + blockPosition);
             return;
+
+        if (blockView.TryShow(true))
+        {
+            _showingBlocks.Add(blockView);
+            blockView.OnBlockHid += BlockHid;
         }
+
+        TryEatBlocks();
+    }
+
+    private void TryEatBlocks()
+    {
+        if (_showingBlocks.Count < 2)
+            return;
         
-        blockView.Show(true);
+        var currentBlock = _showingBlocks[_showingBlocks.Count - 1];
+        
+        for (int i = _showingBlocks.Count - 2; i >= 0; i--)
+        {
+            if (_showingBlocks[i].BlockModel.SiblingPosition.Equals(currentBlock.BlockModel.Position))
+            {
+                currentBlock.OnBlockHid -= BlockHid;
+                _showingBlocks[i].OnBlockHid -= BlockHid;
+                
+                currentBlock.BlockModel.Eat();
+                _showingBlocks[i].BlockModel.Eat();
+                
+                _showingBlocks.Remove(currentBlock);
+                _showingBlocks.RemoveAt(i);
+                
+                break;
+            }
+        }
+    }
 
-        // get block by touch 
-        // rotate block for x seconds
+    private void BlockHid(BlockView blockView)
+    {
+        blockView.OnBlockHid -= BlockHid;
 
-        // check if there is another block with same color 
-        // remove them if it's true 
+        if (_showingBlocks.Contains(blockView))
+            _showingBlocks.Remove(blockView);
     }
 
     private void GenerateLevel()
@@ -89,10 +120,6 @@ public class LevelController : ILevelController, IDisposable
         
         _levelModel.DestroyAllBlocks();
         
-        // TODO
-        // check out shader algorythms for color mixing
-        // compare colors or pictures
-
         _levelData = new LevelData(width, height);
         _levelModel.Initialize(_levelData);
 
@@ -105,17 +132,12 @@ public class LevelController : ILevelController, IDisposable
         for(int i=0; i<width; i++)
             for (int j = 0; j < height; j++)
             {
-                if (freeSpots.Count > 0)
-                    freeSpots.RemoveAt(0);
-                else
-                    break;
-                
                 var block = _levelModel.GetBlock(i, j);
-                
-                Debug.Log(" freeSpots.Count= " + freeSpots.Count);
                 
                 if (block != null)
                     continue;
+                
+                freeSpots.RemoveAt(0);
                 
                 var red = UnityEngine.Random.Range(0f, 1f);
                 var green = UnityEngine.Random.Range(0f, 1f);
@@ -123,7 +145,6 @@ public class LevelController : ILevelController, IDisposable
                 var finalColor = new Color(red, green, blue, 1f);
                 
                 var siblingIndex = UnityEngine.Random.Range(0, freeSpots.Count);
-                Debug.Log("idx " + siblingIndex + " / freeSpots.Count " + freeSpots.Count);
                 var siblingPosition = freeSpots[siblingIndex];
                 
                 freeSpots.RemoveAt(siblingIndex);
@@ -135,10 +156,15 @@ public class LevelController : ILevelController, IDisposable
             }
     }
 
+    private void AllBlocksDestroy()
+    {
+        OnLevelComplete?.Invoke();
+    }
 
     public void Dispose()
     {
         _gameController.OnGameStateChange -= GameStateChanged;
         _inputController.OnQuickTouch -= QuickTouch;
+        _levelModel.OnAllBlocksDestroy -= AllBlocksDestroy;
     }
 }

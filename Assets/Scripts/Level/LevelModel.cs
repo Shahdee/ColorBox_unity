@@ -5,6 +5,8 @@ public class LevelModel : ILevelModel
 {
     public event Action<IBlockModel> OnBlockPut;
     public event Action<IBlockModel> OnBlockDestroy;
+    public event Action OnAllBlocksDestroy;
+    
     public int Width => _levelData.Width;
     public int Height => _levelData.Height;
 
@@ -25,6 +27,8 @@ public class LevelModel : ILevelModel
     public void PutBlock(IBlockModel block)
     {
         _blocks[block.Position.x, block.Position.y] = block;
+
+        block.OnDestroy += BlockDestroy;
         
         OnBlockPut?.Invoke(block);
     }
@@ -36,15 +40,18 @@ public class LevelModel : ILevelModel
         
         for(int i=0; i<_levelData.Width; i++)
             for (int j = 0; j < _levelData.Height; j++)
-                _blocks[i,j].Destroy();
+            {
+                if (_blocks[i,j] != null)
+                    _blocks[i,j].Destroy();
+            }
     }
 
     public IBlockModel GetBlock(Vector2Int position)
     {
-        if (position.x < 0 || position.x > _levelData.Width)
+        if (position.x < 0 || position.x >= _levelData.Width)
             return null;
             
-        if (position.y < 0 || position.y > _levelData.Height)
+        if (position.y < 0 || position.y >= _levelData.Height)
             return null;
 
         return _blocks[position.x, position.y];
@@ -59,5 +66,27 @@ public class LevelModel : ILevelModel
             return null;
 
         return _blocks[x, y];
+    }
+
+    private bool HasBlocks()
+    {
+        for (int i=0; i<_levelData.Width; i++)
+            for (int j = 0; j < _levelData.Height; j++)
+            {
+                if (_blocks[i, j] != null)
+                    return true;
+            }
+
+        return false;
+    }
+
+    private void BlockDestroy(IBlockModel blockModel)
+    {
+        blockModel.OnDestroy -= BlockDestroy;
+        
+        _blocks[blockModel.Position.x, blockModel.Position.y] = null;
+        
+        if (! HasBlocks())
+            OnAllBlocksDestroy?.Invoke();
     }
 }

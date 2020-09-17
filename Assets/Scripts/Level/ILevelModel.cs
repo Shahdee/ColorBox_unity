@@ -6,6 +6,8 @@ public interface ILevelModel
 {
     event Action<IBlockModel> OnBlockPut;
     event Action<IBlockModel> OnBlockDestroy;
+    event Action OnAllBlocksDestroy;
+    
     int Width { get; }
     int Height { get; }
 

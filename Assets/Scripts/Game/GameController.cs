@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour, IGameController
+public class GameController : MonoBehaviour, IGameController, IDisposable
 {
     public event Action<EGameState> OnGameStateChange;
     
@@ -25,6 +25,17 @@ public class GameController : MonoBehaviour, IGameController
         _levelController = new LevelController(this,
                                                 _levelView,
                                                 _inputController);
+
+        _levelController.OnLevelComplete += LevelComplete;
+        
+        SetGameState(EGameState.Play);
+    }
+
+    private void LevelComplete()
+    {
+        // TODO 
+        // pause to show level over screen or whatever 
+        
         SetGameState(EGameState.Play);
     }
 
@@ -48,5 +59,10 @@ public class GameController : MonoBehaviour, IGameController
     private void Update()
     {
         _inputController.Tick();
+    }
+
+    public void Dispose()
+    {
+        _levelController.OnLevelComplete -= LevelComplete;
     }
 }
