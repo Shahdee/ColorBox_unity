@@ -8,8 +8,10 @@ public class GameController : MonoBehaviour, IGameController, IDisposable
     public event Action<EGameState> OnGameStateChange;
     
     [SerializeField] private LevelView _levelView;
+    [SerializeField] private AudioDatabase _audioDatabase;
 
     private ILevelController _levelController;
+    private IAudioController _audioController;
     private IInputController _inputController;
     private EGameState _gameState;
     
@@ -22,9 +24,12 @@ public class GameController : MonoBehaviour, IGameController, IDisposable
          _inputController = new TouchController();
 #endif
         
+        _audioController = new AudioController(_audioDatabase);
+        
         _levelController = new LevelController(this,
                                                 _levelView,
-                                                _inputController);
+                                                _inputController,
+                                                _audioController);
 
         _levelController.OnLevelComplete += LevelComplete;
         

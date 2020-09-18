@@ -131,6 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 137281371}
   - component: {fileID: 137281370}
+  - component: {fileID: 137281372}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -151,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelView: {fileID: 2125148067}
+  _audioDatabase: {fileID: 137281372}
 --- !u!4 &137281371
 Transform:
   m_ObjectHideFlags: 0
@@ -166,6 +168,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &137281372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137281369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda0effba5cc4f3d8009701e930c7a67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioData:
+  - SoundType: 0
+    AudioClip: {fileID: 8300000, guid: 1119a67b17d874fc5a359ef06344777b, type: 3}
+  - SoundType: 2
+    AudioClip: {fileID: 8300000, guid: 52b8cf01c5de448da8b6a5da12b96db3, type: 3}
 --- !u!1 &149962352
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Audio;
 
 public class LevelController : ILevelController, IDisposable
 {
@@ -11,6 +12,7 @@ public class LevelController : ILevelController, IDisposable
 
     private LevelView _levelView;
     private readonly IInputController _inputController;
+    private readonly IAudioController _audioController;
     private ILevelModel _levelModel;
     private IBlockModelFactory _blockFactory;
     private ILevelViewController _levelViewController;
@@ -21,10 +23,12 @@ public class LevelController : ILevelController, IDisposable
     
     public LevelController(IGameController _gameController, 
                             LevelView levelView,
-                            IInputController inputController)
+                            IInputController inputController,
+                            IAudioController audioController)
     {
         _levelView = levelView;
         _inputController = inputController;
+        _audioController = audioController;
         _blockFactory = new BlockModelFactory();
         _levelModel = new LevelModel();
         
@@ -54,6 +58,8 @@ public class LevelController : ILevelController, IDisposable
 
     private void QuickTouch(Vector3 position)
     {
+        _audioController.PlaySound(ESoundType.Tap);
+        
         var worldPosition = Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition);
         var blockPosition = _levelViewController.TransformPosition(worldPosition);
 
@@ -94,6 +100,8 @@ public class LevelController : ILevelController, IDisposable
                 
                 _showingBlocks.Remove(currentBlock);
                 _showingBlocks.RemoveAt(i);
+                
+                _audioController.PlaySound(ESoundType.Eat);
                 
                 break;
             }

@@ -5,6 +5,13 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
+          <e p="Audio" t="Include">
+            <e p="AudioController.cs" t="Include" />
+            <e p="AudioDatabase.cs" t="Include" />
+            <e p="ESoundType.cs" t="Include" />
+            <e p="IAudioController.cs" t="Include" />
+            <e p="IAudioDatabase.cs" t="Include" />
+          </e>
           <e p="Block" t="Include">
             <e p="BlockData.cs" t="Include" />
             <e p="BlockModel.cs" t="Include" />
