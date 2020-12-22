@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
+﻿using System;
+
 
 public interface ILevelController
 {
     event Action OnLevelComplete;
+
+    void GenerateLevel(int fieldSize);
 }

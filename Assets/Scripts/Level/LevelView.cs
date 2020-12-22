@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Tilemaps;
+using Level;
 
-public class LevelView : MonoBehaviour
+public class LevelView : MonoBehaviour, IILevelView
 {
     public Tilemap Level => _level;
     public BlockView BlockViewPrefab => _blockViewPrefab;

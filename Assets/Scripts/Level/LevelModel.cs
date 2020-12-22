@@ -9,9 +9,11 @@ public class LevelModel : ILevelModel
     
     public int Width => _levelData.Width;
     public int Height => _levelData.Height;
+    public int CurrentLevel => _currentLevel;
 
     private IBlockModel[,] _blocks;
     private LevelData _levelData;
+    private int _currentLevel; 
 
     public LevelModel()
     {
@@ -22,6 +24,12 @@ public class LevelModel : ILevelModel
     {
         _levelData = levelData;
         _blocks = new IBlockModel[_levelData.Width, _levelData.Height];
+        _currentLevel = _levelData.StartLevel;
+    }
+
+    public void AdvanceLevel()
+    {
+        _currentLevel++;
     }
 
     public void PutBlock(IBlockModel block)

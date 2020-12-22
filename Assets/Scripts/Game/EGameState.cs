@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum EGameState 
 {
+    Start,
     Play,
     End,
 }

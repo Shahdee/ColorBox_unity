@@ -15,7 +15,7 @@ public class MouseController : AbstractInputController
             return;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (UnityEngine.Input.GetMouseButtonDown(0))
         {
             _quickTouchCurrTime = DateTime.Now;
             _touchInProgress = true;
@@ -23,17 +23,17 @@ public class MouseController : AbstractInputController
 
         if (! _touchInProgress) return;
 
-        if (Input.GetMouseButton(0))
+        if (UnityEngine.Input.GetMouseButton(0))
         {
         }
 
 
-        if (Input.GetMouseButtonUp(0))
+        if (UnityEngine.Input.GetMouseButtonUp(0))
         {
             if ((DateTime.Now - _quickTouchCurrTime).Seconds < QuickTouchMaxTimeDelta)
             {
                 _touchInProgress = false;
-                QuickTouch(Input.mousePosition);
+                QuickTouch(UnityEngine.Input.mousePosition);
             }
         }
     }

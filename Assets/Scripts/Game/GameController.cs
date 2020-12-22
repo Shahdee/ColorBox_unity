@@ -1,45 +1,60 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
+using Helpers;
+using Initialization;
 using UnityEngine;
 
-public class GameController : MonoBehaviour, IGameController, IDisposable
+
+public class GameController : IGameController, IDisposable
 {
     public event Action<EGameState> OnGameStateChange;
-    
-    [SerializeField] private LevelView _levelView;
-    [SerializeField] private AudioDatabase _audioDatabase;
 
-    private ILevelController _levelController;
-    private IAudioController _audioController;
-    private IInputController _inputController;
+    private const float LevelDelay = 2f;
+    
+    private readonly ILevelController _levelController;
+    private readonly IInputController _inputController;
+    private readonly IInitializeMediator _initializeMediator;
+    private readonly ICoroutineManager _coroutineManager;
+
     private EGameState _gameState;
-    
-    private void Awake()
-    {
-        
-#if UNITY_STANDALONE || UNITY_EDITOR
-        _inputController = new MouseController();
-#else
-         _inputController = new TouchController();
-#endif
-        
-        _audioController = new AudioController(_audioDatabase);
-        
-        _levelController = new LevelController(this,
-                                                _levelView,
-                                                _inputController,
-                                                _audioController);
+    private int _fieldSize = 4;
 
+    public GameController(IInputController inputController,
+                        IInitializeMediator initializeMediator,
+                        ICoroutineManager coroutineManager,
+                        ILevelController levelController)
+    {
+        _inputController = inputController;
+        _initializeMediator = initializeMediator;
+        _coroutineManager = coroutineManager;
+        _levelController = levelController;
+        
         _levelController.OnLevelComplete += LevelComplete;
+        _initializeMediator.OnDone += InitDone;
+    }
+
+    public void StartGame(int size)
+    {
+        // _fieldSize = size;
         
         SetGameState(EGameState.Play);
+    }
+    
+    private void InitDone()
+    {
+        SetGameState(EGameState.Start);
     }
 
     private void LevelComplete()
     {
-        // TODO 
-        // pause to show level over screen or whatever 
+        SetGameState(EGameState.End);
+        
+        _coroutineManager.StartCoroutine(ContinueGame());
+    }
+
+    private IEnumerator ContinueGame()
+    {
+        yield return new WaitForSeconds(LevelDelay);
         
         SetGameState(EGameState.Play);
     }
@@ -48,11 +63,16 @@ public class GameController : MonoBehaviour, IGameController, IDisposable
     {
         _gameState = state;
         OnGameStateChange?.Invoke(_gameState);
-
+        
         switch (_gameState)
         {
+            case EGameState.Start:
+                _inputController.SetEnabled(false);
+            break;
+            
             case EGameState.Play:
                 _inputController.SetEnabled(true);
+                _levelController.GenerateLevel(_fieldSize);
                 break;
             
             case EGameState.End:
@@ -61,13 +81,10 @@ public class GameController : MonoBehaviour, IGameController, IDisposable
         }
     }
 
-    private void Update()
-    {
-        _inputController.Tick();
-    }
-
     public void Dispose()
     {
         _levelController.OnLevelComplete -= LevelComplete;
     }
+
+   
 }

@@ -7,7 +7,7 @@ public class TouchController : AbstractInputController
     private DateTime _quickTouchCurrTime;
     private Vector2 _touchCurrPosition;
     private Touch _currentTouch;
-
+    
     protected override void UpdateInput()
     {
         if (_touchInProgress && EventSystem.current.IsPointerOverGameObject())
@@ -16,9 +16,9 @@ public class TouchController : AbstractInputController
             return;
         }
 
-        if (Input.touchCount > 0)
+        if (UnityEngine.Input.touchCount > 0)
         {
-            _currentTouch = Input.GetTouch(0);
+            _currentTouch = UnityEngine.Input.GetTouch(0);
 
             switch (_currentTouch.phase)
             {
