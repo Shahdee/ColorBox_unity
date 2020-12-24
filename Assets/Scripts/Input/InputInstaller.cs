@@ -7,7 +7,7 @@ namespace Input
         public override void InstallBindings()
         {
             
-#if UNITY_STANDALONE || UNITY_EDITOR
+#if UNITY_STANDALONE || UNITY_EDITOR || UNITY_WEBGL
             Container.BindInterfacesTo<MouseController>().AsSingle();
 #else
             Container.BindInterfacesTo<TouchController>().AsSingle();

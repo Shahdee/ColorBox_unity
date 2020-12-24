@@ -532,14 +532,22 @@
           </e>
           <e p="Block" t="Include">
             <e p="BlockData.cs" t="Include" />
+            <e p="BlockInstaller.cs" t="Include" />
             <e p="BlockModel.cs" t="Include" />
             <e p="BlockModelFactory.cs" t="Include" />
+            <e p="BlockSpriteData.cs" t="Include" />
+            <e p="BlockSpriteDatabaseAsset.cs" t="Include" />
+            <e p="BlockSpriteDataProvider.cs" t="Include" />
             <e p="BlockView.cs" t="Include" />
             <e p="BlockViewFactory.cs" t="Include" />
             <e p="EBlockState.cs" t="Include" />
-            <e p="IBlockModel.cs" t="Include" />
-            <e p="IBlockModelFactory.cs" t="Include" />
-            <e p="IBlockViewFactory.cs" t="Include" />
+            <e p="EBlockType.cs" t="Include" />
+            <e p="Interfaces" t="Include">
+              <e p="IBlockModel.cs" t="Include" />
+              <e p="IBlockModelFactory.cs" t="Include" />
+              <e p="IBlockSpriteDataProvider.cs" t="Include" />
+              <e p="IBlockViewFactory.cs" t="Include" />
+            </e>
           </e>
           <e p="Game" t="Include">
             <e p="EGameState.cs" t="Include" />

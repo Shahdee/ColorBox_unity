@@ -1,19 +1,25 @@
 
+using Block;
 using UnityEngine;
 
 public class BlockViewFactory : IBlockViewFactory
 {
-    private BlockView _prefab;
-    
-    public BlockViewFactory(BlockView prefab)
+    private readonly BlockView _prefab;
+    private readonly IBlockSpriteDataProvider _dataProvider;
+
+    public BlockViewFactory(BlockView prefab, IBlockSpriteDataProvider dataProvider)
     {
         _prefab = prefab;
+        _dataProvider = dataProvider;
     }
 
     public BlockView CreateBlock(IBlockModel blockModel)
     {
         var block = Object.Instantiate(_prefab);
-        block.Initialize(blockModel);
+
+        var objectSprite = _dataProvider.GetSprite(blockModel.BlockType);
+        
+        block.Initialize(blockModel, objectSprite);
         
         return block;
     }

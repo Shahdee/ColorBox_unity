@@ -8,7 +8,8 @@ public class BlockView : MonoBehaviour
     public event Action<BlockView> OnBlockEaten;
     public IBlockModel BlockModel => _blockModel;
     
-    [SerializeField] private SpriteRenderer _renderer;
+    [SerializeField] private SpriteRenderer _blockSprite;
+    [SerializeField] private SpriteRenderer _objectSprite;
 
     private static Color DefaltColor = Color.white;
     
@@ -22,14 +23,16 @@ public class BlockView : MonoBehaviour
     private float _currentEatTime;
     private EBlockState _blockState;
 
-    public void Initialize(IBlockModel model)
+    public void Initialize(IBlockModel model, Sprite objectSprite)
     {
         _blockModel = model;
 
         _blockModel.OnDestroy += BlockDestroy;
         _blockModel.OnEat += BlockEat;
 
-        _renderer.color = DefaltColor;
+        _blockSprite.color = DefaltColor;
+        _objectSprite.enabled = false;
+        _objectSprite.sprite = objectSprite;
     }
 
     public void SetParent(Transform parent)
@@ -48,7 +51,8 @@ public class BlockView : MonoBehaviour
             return false;
 
         _shown = show;
-        _renderer.color = _shown ? _blockModel.BlockColor : DefaltColor;
+        _blockSprite.color = _shown ? _blockModel.BlockColor : DefaltColor;
+        _objectSprite.enabled = _shown;
         _currentShowTime = _shown ? ShowTime : 0;
 
         _blockState = _shown ? EBlockState.Shown : EBlockState.Hidden;

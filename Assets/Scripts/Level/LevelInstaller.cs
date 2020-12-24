@@ -9,6 +9,7 @@ namespace Level
             Container.Bind<LevelView>().FromComponentInHierarchy().AsSingle();
             
             Container.BindInterfacesTo<LevelController>().AsSingle();
+            Container.BindInterfacesTo<LevelViewController>().AsSingle();
             Container.BindInterfacesTo<LevelModel>().AsSingle();
         }
     }

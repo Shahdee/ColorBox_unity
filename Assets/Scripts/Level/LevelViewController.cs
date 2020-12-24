@@ -11,11 +11,12 @@ public class LevelViewController : ILevelViewController, IDisposable
     private Dictionary<IBlockModel, BlockView> _blocks;
 
     public LevelViewController(LevelView levelView,
+                                IBlockViewFactory blockViewFactory,
                                 ILevelModel levelModel)
     {
         _levelModel = levelModel;
         _levelView = levelView;
-        _blockViewFactory = new BlockViewFactory(_levelView.BlockViewPrefab);
+        _blockViewFactory = blockViewFactory;
         
         _blocks = new Dictionary<IBlockModel, BlockView>();
 

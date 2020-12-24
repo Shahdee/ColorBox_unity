@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32175a897c6b4ef981e1e41382e7ea49, type: 3}
+  m_Name: BlockInstaller
+  m_EditorClassIdentifier: 
+  _blockView: {fileID: 3391427466562270823, guid: 12ffcd70daefb4d7e8fa4bfa9c764b3b,
+    type: 3}
+  _blockSpriteDatabase: {fileID: 11400000, guid: 8d6efc698b9bf44d0ba240ef71a07609,
+    type: 2}

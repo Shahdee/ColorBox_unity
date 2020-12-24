@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 using Audio;
+using Block;
 
 public class LevelController : ILevelController, IDisposable
 {
@@ -19,11 +21,14 @@ public class LevelController : ILevelController, IDisposable
 
     private LevelData _levelData;
     private List<BlockView> _showingBlocks;
+    private List<EBlockType> _randomBlockTypes;
 
     private bool _initialize = true;
     
     public LevelController(LevelView levelView,
                             ILevelModel levelModel,
+                            ILevelViewController levelViewController,
+                            IBlockModelFactory blockFactory,
                             IInputController inputController,
                             IAudioController audioController)
     {
@@ -31,13 +36,10 @@ public class LevelController : ILevelController, IDisposable
         _levelModel = levelModel;
         _inputController = inputController;
         _audioController = audioController;
+        _blockFactory = blockFactory;
+        _levelViewController = levelViewController;
         
-        // TODO installers 
-        _blockFactory = new BlockModelFactory();
-        // _levelModel = new LevelModel();
-        _levelViewController = new LevelViewController(_levelView, _levelModel);
         _showingBlocks = new List<BlockView>();
-        // 
         
         _inputController.OnQuickTouch += QuickTouch;
         _levelModel.OnAllBlocksDestroy += AllBlocksDestroy;
@@ -52,8 +54,8 @@ public class LevelController : ILevelController, IDisposable
         int height = fieldSize;
         
         Debug.LogError("width " + width + " / height " + height);
-        
-        _levelModel.DestroyAllBlocks();
+
+        ClearLevel();
 
         if (_initialize)
         {
@@ -66,6 +68,8 @@ public class LevelController : ILevelController, IDisposable
         {
             _levelModel.AdvanceLevel();
         }
+        
+        GenerateRandomBlockTypes();
 
         var freeSpots = new List<Vector2Int>();
 
@@ -83,21 +87,60 @@ public class LevelController : ILevelController, IDisposable
                 
             freeSpots.RemoveAt(0);
                 
-            var red = UnityEngine.Random.Range(0f, 1f);
-            var green = UnityEngine.Random.Range(0f, 1f);
-            var blue = UnityEngine.Random.Range(0f, 1f);
-            var finalColor = new Color(red, green, blue, 1f);
-                
             var siblingIndex = UnityEngine.Random.Range(0, freeSpots.Count);
             var siblingPosition = freeSpots[siblingIndex];
                 
             freeSpots.RemoveAt(siblingIndex);
-                
-            var blockModel = _blockFactory.CreateBlock(finalColor, new Vector2Int(i, j), siblingPosition);
-            var siblingBlock = _blockFactory.CreateBlock(finalColor, siblingPosition, new Vector2Int(i, j));
+
+            // var finalColor = GetRandomColor();
+            // var blockModel = _blockFactory.CreateBlock(finalColor, new Vector2Int(i, j), siblingPosition);
+            // var siblingBlock = _blockFactory.CreateBlock(finalColor, siblingPosition, new Vector2Int(i, j));
+
+            var finalBlockType = GetRandomBlockType();
+            var blockModel = _blockFactory.CreateBlock(finalBlockType, new Vector2Int(i, j), siblingPosition);
+            var siblingBlock = _blockFactory.CreateBlock(finalBlockType, siblingPosition, new Vector2Int(i, j));
+            
             _levelModel.PutBlock(blockModel);
             _levelModel.PutBlock(siblingBlock);
         }
+    }
+
+    private void ClearLevel()
+    {
+        _levelModel.DestroyAllBlocks();
+        _showingBlocks.Clear();
+    }
+
+    private void GenerateRandomBlockTypes()
+    {
+        var enumList = Enum.GetValues(typeof(EBlockType)).OfType<EBlockType>().ToList();
+        
+        var randomBlockTypes = enumList.OrderBy(r=>UnityEngine.Random.value);
+        
+        _randomBlockTypes = randomBlockTypes.ToList();
+
+        foreach (var b in randomBlockTypes)
+        {
+            Debug.Log("b " + b);
+        }
+    }
+
+    private Color GetRandomColor()
+    {
+        var red = UnityEngine.Random.Range(0f, 1f);
+        var green = UnityEngine.Random.Range(0f, 1f);
+        var blue = UnityEngine.Random.Range(0f, 1f);
+        var finalColor = new Color(red, green, blue, 1f);
+
+        return finalColor;
+    }
+
+    private EBlockType GetRandomBlockType()
+    {
+        var blockType = _randomBlockTypes[_randomBlockTypes.Count - 1];
+        _randomBlockTypes.RemoveAt(_randomBlockTypes.Count - 1);
+
+        return blockType;
     }
 
     private void QuickTouch(Vector3 position)
@@ -161,7 +204,6 @@ public class LevelController : ILevelController, IDisposable
         if (_showingBlocks.Contains(blockView))
             _showingBlocks.Remove(blockView);
     }
-
    
 
     private void AllBlocksDestroy()
