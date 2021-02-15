@@ -8,7 +8,7 @@ namespace Input
         {
             
 #if UNITY_STANDALONE || UNITY_EDITOR || UNITY_WEBGL
-            Container.BindInterfacesTo<MouseController>().AsSingle();
+            Container.BindInterfacesTo<PCInputController>().AsSingle();
 #else
             Container.BindInterfacesTo<TouchController>().AsSingle();
 #endif

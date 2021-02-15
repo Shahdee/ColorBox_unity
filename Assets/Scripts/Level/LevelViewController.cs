@@ -7,9 +7,12 @@ public class LevelViewController : ILevelViewController, IDisposable
     private readonly ILevelModel _levelModel;
     private readonly LevelView _levelView;
     private readonly IBlockViewFactory _blockViewFactory;
+    
+    private const int BlockWidth = 1;
+    private const int BlockHeight = 1;
 
     private Dictionary<IBlockModel, BlockView> _blocks;
-
+    
     public LevelViewController(LevelView levelView,
                                 IBlockViewFactory blockViewFactory,
                                 ILevelModel levelModel)
@@ -23,14 +26,26 @@ public class LevelViewController : ILevelViewController, IDisposable
         _levelModel.OnBlockPut += BlockPut;
         _levelModel.OnBlockDestroy += BlockDestroy;
     }
+
+
     
     public Vector2Int TransformPosition(Vector3 worldPosition)
     {
         var localPosition = _levelView.BlockParent.InverseTransformPoint(worldPosition);
+
         return new Vector2Int()
         {
-            x = Mathf.RoundToInt(localPosition.x - (1 - _levelModel.Width)  * 0.5f),
-            y = Mathf.RoundToInt(localPosition.y - (1 - _levelModel.Height) * 0.5f),
+            x = Mathf.RoundToInt(localPosition.x / BlockWidth),
+            y = Mathf.RoundToInt(localPosition.y / BlockHeight)
+        };
+    }
+    
+    public Vector3 TransformPosition(Vector2Int position)
+    {
+        return new Vector3()
+        {
+            x = position.x * BlockWidth + BlockWidth/2,
+            y = position.y * BlockHeight + BlockHeight/2,
         };
     }
 
@@ -53,15 +68,6 @@ public class LevelViewController : ILevelViewController, IDisposable
         
         blockView.SetPosition(position);
     } 
-    
-    private Vector3 TransformPosition(Vector2Int position)
-    {
-        return new Vector3()
-        {
-            x = position.x + (1 - _levelModel.Width) * 0.5f,
-            y = position.y + (1 - _levelModel.Height) * 0.5f
-        };
-    }
     
     private void BlockDestroy(IBlockModel blockModel)
     {

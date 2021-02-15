@@ -2,12 +2,35 @@ using UnityEngine;
 using System;
 using UnityEngine.EventSystems;
 
-public class TouchController : AbstractInputController
+public class MobileInputController : AbstractInputController
 {
     private DateTime _quickTouchCurrTime;
     private Vector2 _touchCurrPosition;
     private Touch _currentTouch;
-    
+
+    public override float GetHorizontalAxis()
+    {
+        if (!_enabled)
+            return 0;
+
+        else
+        {
+            throw new NotImplementedException();
+        }
+
+    }
+
+    public override float GetVerticalAxis()
+    {
+        if (!_enabled)
+            return 0;
+
+        else
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     protected override void UpdateInput()
     {
         if (_touchInProgress && EventSystem.current.IsPointerOverGameObject())

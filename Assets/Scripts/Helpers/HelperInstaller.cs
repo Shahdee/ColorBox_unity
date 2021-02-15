@@ -7,7 +7,8 @@ namespace Helpers
         public override void InstallBindings()
         {
             Container.BindInterfacesTo<CoroutineManager>().AsSingle();
-            Container.BindInterfacesTo<MonoManager>().AsSingle();
+            Container.BindInterfacesTo<MonoMediator>().AsSingle();
+            Container.BindInterfacesTo<MonoRegisterMediator>().AsSingle();
         }
     }
 }

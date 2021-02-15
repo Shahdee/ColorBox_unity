@@ -1,33 +1,39 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using Audio;
-using Block;
+using Characters;
+
+// Next 
+    // level data is loaded from json 
+
 
 public class LevelController : ILevelController, IDisposable
 {
     public event Action OnLevelComplete;
 
     private const int DefaultLevel = 1;
+    private const int DefaultCharacterXPos = 0;
+    private const int DefaultCharacterYPos = 0;
 
     private readonly LevelView _levelView;
     private readonly IInputController _inputController;
     private readonly IAudioController _audioController;
     private readonly ILevelModel _levelModel;
+    private readonly ICharacterFactory _characterFactory;
+    private readonly ICharacterDatabase _characterDatabase;
+    private readonly List<ICharacter> _levelCharacters;
     
     private IBlockModelFactory _blockFactory;
     private ILevelViewController _levelViewController;
-
     private LevelData _levelData;
-    private List<BlockView> _showingBlocks;
-    private List<EBlockType> _randomBlockTypes;
-
     private bool _initialize = true;
     
     public LevelController(LevelView levelView,
                             ILevelModel levelModel,
                             ILevelViewController levelViewController,
+                            ICharacterFactory characterFactory,
+                            ICharacterDatabase characterDatabase,
                             IBlockModelFactory blockFactory,
                             IInputController inputController,
                             IAudioController audioController)
@@ -38,182 +44,86 @@ public class LevelController : ILevelController, IDisposable
         _audioController = audioController;
         _blockFactory = blockFactory;
         _levelViewController = levelViewController;
-        
-        _showingBlocks = new List<BlockView>();
-        
+        _characterFactory = characterFactory;
+        _characterDatabase = characterDatabase;
+
         _inputController.OnQuickTouch += QuickTouch;
-        _levelModel.OnAllBlocksDestroy += AllBlocksDestroy;
+        
+        _levelCharacters = new List<ICharacter>();
     }
 
-    public void GenerateLevel(int fieldSize)
+    public void GenerateLevel()
     {
-        // int width = _levelView.Level.origin.x + _levelView.Level.size.x;
-        // int height = _ _levelView.Level.origin.x + _levelView.Level.size.x;
-
-        int width = fieldSize;
-        int height = fieldSize;
-        
-        Debug.LogError("width " + width + " / height " + height);
-
         ClearLevel();
 
         if (_initialize)
         {
             _initialize = false;
             
-            _levelData = new LevelData(width, height, DefaultLevel);
+            _levelData = new LevelData(DefaultLevel);
             _levelModel.Initialize(_levelData);
         }
         else
-        {
             _levelModel.AdvanceLevel();
-        }
         
-        GenerateRandomBlockTypes();
+        // TODO get/create character using level data  
 
-        var freeSpots = new List<Vector2Int>();
+        var character = _characterDatabase.Get(ECharacterType.Stella);
+        if (character == null)
+            character = _characterFactory.CreateCharacter(ECharacterType.Stella);
 
-        for(int i=0; i<width; i++)
-        for (int j = 0; j < height; j++)
-            freeSpots.Add(new Vector2Int(i,j));
-
-        for(int i=0; i<width; i++)
-        for (int j = 0; j < height; j++)
+        if (character != null)
         {
-            var block = _levelModel.GetBlock(i, j);
-                
-            if (block != null)
-                continue;
-                
-            freeSpots.RemoveAt(0);
-                
-            var siblingIndex = UnityEngine.Random.Range(0, freeSpots.Count);
-            var siblingPosition = freeSpots[siblingIndex];
-                
-            freeSpots.RemoveAt(siblingIndex);
-
-            // var finalColor = GetRandomColor();
-            // var blockModel = _blockFactory.CreateBlock(finalColor, new Vector2Int(i, j), siblingPosition);
-            // var siblingBlock = _blockFactory.CreateBlock(finalColor, siblingPosition, new Vector2Int(i, j));
-
-            var finalBlockType = GetRandomBlockType();
-            var blockModel = _blockFactory.CreateBlock(finalBlockType, new Vector2Int(i, j), siblingPosition);
-            var siblingBlock = _blockFactory.CreateBlock(finalBlockType, siblingPosition, new Vector2Int(i, j));
+            _levelCharacters.Add(character);
             
-            _levelModel.PutBlock(blockModel);
-            _levelModel.PutBlock(siblingBlock);
+            var position = _levelViewController.TransformPosition(new Vector2Int(DefaultCharacterXPos, DefaultCharacterYPos));
+            character.Teleport(position);
         }
+        else
+        {
+            Debug.LogError("character wasn't created ");
+        }
+    }
+
+    public ICharacter GetCurrentCharacter()
+    {
+        if (_levelCharacters.Any())
+            return _levelCharacters[0];
+
+        return null;
+    }
+
+    public void ChangeCharacter()
+    {
+        // TODO implement 
     }
 
     private void ClearLevel()
     {
         _levelModel.DestroyAllBlocks();
-        _showingBlocks.Clear();
-    }
-
-    private void GenerateRandomBlockTypes()
-    {
-        var enumList = Enum.GetValues(typeof(EBlockType)).OfType<EBlockType>().ToList();
         
-        var randomBlockTypes = enumList.OrderBy(r=>UnityEngine.Random.value);
-        
-        _randomBlockTypes = randomBlockTypes.ToList();
-
-        foreach (var b in randomBlockTypes)
-        {
-            Debug.Log("b " + b);
-        }
+        // TODO remove chars 
     }
-
-    private Color GetRandomColor()
-    {
-        var red = UnityEngine.Random.Range(0f, 1f);
-        var green = UnityEngine.Random.Range(0f, 1f);
-        var blue = UnityEngine.Random.Range(0f, 1f);
-        var finalColor = new Color(red, green, blue, 1f);
-
-        return finalColor;
-    }
-
-    private EBlockType GetRandomBlockType()
-    {
-        var blockType = _randomBlockTypes[_randomBlockTypes.Count - 1];
-        _randomBlockTypes.RemoveAt(_randomBlockTypes.Count - 1);
-
-        return blockType;
-    }
-
+    
     private void QuickTouch(Vector3 position)
     {
-        if (_showingBlocks.Count > 1)
-            return;
-        
         var worldPosition = Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition);
         var blockPosition = _levelViewController.TransformPosition(worldPosition);
 
         var block = _levelModel.GetBlock(blockPosition);
-
         if (block == null)
-            return;
-        
-        var blockView = _levelViewController.GetBlock(block);
-        if (blockView == null)
-            return;
-        
-        if (blockView.TryShow(true))
         {
-            _audioController.PlaySound(ESoundType.Tap);
-            _showingBlocks.Add(blockView);
-            blockView.OnBlockHid += BlockHid;
+            var blockModel = _blockFactory.CreateBlock(blockPosition);
+            _levelModel.PutBlock(blockModel);
         }
-
-        TryEatBlocks();
-    }
-
-    private void TryEatBlocks()
-    {
-        if (_showingBlocks.Count < 2)
-            return;
-        
-        var currentBlock = _showingBlocks[_showingBlocks.Count - 1];
-        
-        for (int i = _showingBlocks.Count - 2; i >= 0; i--)
+        else
         {
-            if (_showingBlocks[i].BlockModel.SiblingPosition.Equals(currentBlock.BlockModel.Position))
-            {
-                currentBlock.OnBlockHid -= BlockHid;
-                _showingBlocks[i].OnBlockHid -= BlockHid;
-                
-                currentBlock.BlockModel.Eat();
-                _showingBlocks[i].BlockModel.Eat();
-                
-                _showingBlocks.Remove(currentBlock);
-                _showingBlocks.RemoveAt(i);
-                
-                _audioController.PlaySound(ESoundType.Eat);
-                
-                break;
-            }
+            block.Destroy();
         }
-    }
-
-    private void BlockHid(BlockView blockView)
-    {
-        blockView.OnBlockHid -= BlockHid;
-
-        if (_showingBlocks.Contains(blockView))
-            _showingBlocks.Remove(blockView);
-    }
-   
-
-    private void AllBlocksDestroy()
-    {
-        OnLevelComplete?.Invoke();
     }
 
     public void Dispose()
     {
         _inputController.OnQuickTouch -= QuickTouch;
-        _levelModel.OnAllBlocksDestroy -= AllBlocksDestroy;
     }
 }

@@ -4,6 +4,6 @@ namespace UI
 {
     public interface IMainWindow
     {
-        event Action<int> OnGamePlay;
+        event Action OnGamePlay;
     }
 }

@@ -6,7 +6,7 @@ namespace UI
 {
     public class MainWindow : AbstractWindow, IMainWindow, IDisposable
     {
-        public event Action<int> OnGamePlay;
+        public event Action OnGamePlay;
         public override EWindowType WindowType => EWindowType.Main;
     
         private readonly LazyInject<MainWindowView> _view;
@@ -34,7 +34,7 @@ namespace UI
 
         private void StartGame()
         {
-            OnGamePlay?.Invoke(4);
+            OnGamePlay?.Invoke();
         }
 
         public void Dispose()

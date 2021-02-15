@@ -1,9 +1,12 @@
 ﻿using System;
+using Characters;
 
 
 public interface ILevelController
 {
     event Action OnLevelComplete;
 
-    void GenerateLevel(int fieldSize);
+    void GenerateLevel();
+    ICharacter GetCurrentCharacter();
+    void ChangeCharacter();
 }

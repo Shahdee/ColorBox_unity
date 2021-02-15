@@ -10,14 +10,8 @@ public class BlockModelFactory : IBlockModelFactory
       
    }
 
-   public IBlockModel CreateBlock(Color color, Vector2Int position, Vector2Int siblingPosition)
+   public IBlockModel CreateBlock(Vector2Int position)
    {
-      return new BlockModel(color, position, siblingPosition);
+      return new BlockModel(position);
    }
-   
-   public IBlockModel CreateBlock(EBlockType blockType, Vector2Int position, Vector2Int siblingPosition)
-   {
-      return new BlockModel(blockType, position, siblingPosition);
-   }
-   
 }

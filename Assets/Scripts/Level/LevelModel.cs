@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public class LevelModel : ILevelModel
 {
@@ -7,11 +9,9 @@ public class LevelModel : ILevelModel
     public event Action<IBlockModel> OnBlockDestroy;
     public event Action OnAllBlocksDestroy;
     
-    public int Width => _levelData.Width;
-    public int Height => _levelData.Height;
     public int CurrentLevel => _currentLevel;
 
-    private IBlockModel[,] _blocks;
+    private HashSet<IBlockModel> _blockModels;
     private LevelData _levelData;
     private int _currentLevel; 
 
@@ -23,7 +23,7 @@ public class LevelModel : ILevelModel
     public void Initialize(LevelData levelData)
     {
         _levelData = levelData;
-        _blocks = new IBlockModel[_levelData.Width, _levelData.Height];
+        _blockModels = new HashSet<IBlockModel>();
         _currentLevel = _levelData.StartLevel;
     }
 
@@ -34,7 +34,7 @@ public class LevelModel : ILevelModel
 
     public void PutBlock(IBlockModel block)
     {
-        _blocks[block.Position.x, block.Position.y] = block;
+        _blockModels.Add(block);
 
         block.OnDestroy += BlockDestroy;
         
@@ -45,56 +45,34 @@ public class LevelModel : ILevelModel
     {
         if (_levelData == null)
             return;
+
+        foreach (var block in _blockModels)
+        {
+            block.Destroy();
+        }
         
-        for(int i=0; i<_levelData.Width; i++)
-            for (int j = 0; j < _levelData.Height; j++)
-            {
-                if (_blocks[i,j] != null)
-                    _blocks[i,j].Destroy();
-            }
+        _blockModels.Clear();
     }
 
     public IBlockModel GetBlock(Vector2Int position)
     {
-        if (position.x < 0 || position.x >= _levelData.Width)
-            return null;
-            
-        if (position.y < 0 || position.y >= _levelData.Height)
-            return null;
-
-        return _blocks[position.x, position.y];
+        var block = _blockModels.FirstOrDefault(b => b.Position.x == position.x && b.Position.y == position.y);
+        return block;
     } 
     
     public IBlockModel GetBlock(int x, int y)
     {
-        if (x < 0 || x > _levelData.Width)
-            return null;
-            
-        if (y < 0 || y > _levelData.Height)
-            return null;
-
-        return _blocks[x, y];
-    }
-
-    private bool HasBlocks()
-    {
-        for (int i=0; i<_levelData.Width; i++)
-            for (int j = 0; j < _levelData.Height; j++)
-            {
-                if (_blocks[i, j] != null)
-                    return true;
-            }
-
-        return false;
+        var block = _blockModels.FirstOrDefault(b => b.Position.x == x && b.Position.y == y);
+        return block;
     }
 
     private void BlockDestroy(IBlockModel blockModel)
     {
         blockModel.OnDestroy -= BlockDestroy;
+
+        _blockModels.Remove(blockModel);
         
-        _blocks[blockModel.Position.x, blockModel.Position.y] = null;
-        
-        if (! HasBlocks())
+        if (! _blockModels.Any())
             OnAllBlocksDestroy?.Invoke();
     }
 }

@@ -17,7 +17,6 @@ public class GameController : IGameController, IDisposable
     private readonly ICoroutineManager _coroutineManager;
 
     private EGameState _gameState;
-    private int _fieldSize = 4;
 
     public GameController(IInputController inputController,
                         IInitializeMediator initializeMediator,
@@ -33,10 +32,8 @@ public class GameController : IGameController, IDisposable
         _initializeMediator.OnDone += InitDone;
     }
 
-    public void StartGame(int size)
+    public void StartGame()
     {
-        // _fieldSize = size;
-        
         SetGameState(EGameState.Play);
     }
     
@@ -72,7 +69,7 @@ public class GameController : IGameController, IDisposable
             
             case EGameState.Play:
                 _inputController.SetEnabled(true);
-                _levelController.GenerateLevel(_fieldSize);
+                _levelController.GenerateLevel();
                 break;
             
             case EGameState.End:

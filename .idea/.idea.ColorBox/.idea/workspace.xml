@@ -2,40 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cf991d74-fcab-4d0e-af30-a27192fac2bb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Block/BlockInstaller.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Block/BlockInstaller.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Block/BlockSpriteData.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Block/BlockSpriteData.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Block/BlockSpriteDataProvider.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Block/BlockSpriteDataProvider.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Block/BlockSpriteDatabaseAsset.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Block/BlockSpriteDatabaseAsset.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Block/EBlockType.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Block/EBlockType.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Block/Interfaces.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Block/Interfaces/IBlockSpriteDataProvider.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Block/Interfaces/IBlockSpriteDataProvider.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ColorBox/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ColorBox/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ColorBox/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ColorBox/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Block.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Block.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MainWindow.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MainWindow.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Block/BlockModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Block/BlockModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Block/BlockModelFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Block/BlockModelFactory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Block/BlockView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Block/BlockView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Block/BlockViewFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Block/BlockViewFactory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Block/IBlockModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Block/Interfaces/IBlockModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Block/IBlockModel.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Block/Interfaces/IBlockModel.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Block/IBlockModelFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Block/Interfaces/IBlockModelFactory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Block/IBlockModelFactory.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Block/Interfaces/IBlockModelFactory.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Block/IBlockViewFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Block/Interfaces/IBlockViewFactory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Block/IBlockViewFactory.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Block/Interfaces/IBlockViewFactory.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Input/InputInstaller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Input/InputInstaller.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Level/LevelController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Level/LevelController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Level/LevelInstaller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Level/LevelInstaller.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Level/LevelViewController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Level/LevelViewController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +137,6 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Block/EBlockType.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Block/IBlockModelFactory.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Block/BlockModelFactory.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Level/LevelController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Block/IBlockModel.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Block/BlockModel.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Block/BlockSpriteData.cs" />
@@ -179,6 +146,7 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Block/BlockInstaller.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Block/BlockSpriteDataProvider.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Block/BlockView.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Level/LevelController.cs" />
       </list>
     </option>
   </component>

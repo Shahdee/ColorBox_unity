@@ -20,9 +20,9 @@ namespace UI
             _mainWindow.OnGamePlay += PlayGame;
         }
 
-        private void PlayGame(int size)
+        private void PlayGame()
         {
-            _gameController.StartGame(size);
+            _gameController.StartGame();
         }
 
         private void GameStateChange(EGameState state)

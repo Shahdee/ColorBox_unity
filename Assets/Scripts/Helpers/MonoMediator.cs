@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Helpers
 {
-    public class MonoManager : Zenject.IInitializable
+    public class MonoMediator : Zenject.IInitializable
     {
         private readonly List<IUpdatable> _updatables;
         
         private MonoManagerView _view;
         
         
-        public MonoManager(List<IUpdatable> updatables)
+        public MonoMediator(List<IUpdatable> updatables)
         {
             _updatables = updatables;
         }
